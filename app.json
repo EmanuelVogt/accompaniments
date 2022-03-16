@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "accompaniments",
+    "slug": "accompaniments",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "expo-bare-typescript"
+}
