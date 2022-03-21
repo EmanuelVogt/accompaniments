@@ -1,0 +1,14 @@
+com/expobaretypescript/MainApplication.java
+ com.expobaretypescript.MainApplication
+ com.expobaretypescript.MainApplication$1
+com/expobaretypescript/MainActivity.java
+ com.expobaretypescript.MainActivity
+com/expobaretypescript/BuildConfig.java
+ com.expobaretypescript.BuildConfig
+com/expobaretypescript/ReactNativeFlipper.java
+ com.expobaretypescript.ReactNativeFlipper
+ com.expobaretypescript.ReactNativeFlipper$1
+ com.expobaretypescript.ReactNativeFlipper$2
+ com.expobaretypescript.ReactNativeFlipper$2$1
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList

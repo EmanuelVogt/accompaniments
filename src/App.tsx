@@ -1,27 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import Toast from 'react-native-toast-message'
+import { ThemeProvider } from 'styled-components'
+
+import theme from './global/theme'
+import { toastConfig } from './global/toast.config'
+import { Accompaniments } from './screens/Accompaniments'
+import { Home } from './screens/Home'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.emoji}>😻</Text>
-      <Text style={styles.text}>Open up src/App.tsx to start working on your app!</Text>
-      <Text>Happy hacking! 🙌🏻</Text>
-    </View>
+    <ThemeProvider theme={theme}>
+      <Home />
+      <Toast config={toastConfig} />
+    </ThemeProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  text: {
-    marginBottom: 8
-  },
-  emoji: {
-    fontSize: 82,
-    marginBottom: 24
-  }
-})
