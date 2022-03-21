@@ -1,20 +1,25 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
 
 import { HomeInterface } from '../../components/HomeInterface'
-import { Container, Header, Title, Icon, SubContainer } from './styles'
+import { HeaderTitle } from '../../components/controllers/HeaderTitle'
+import { MainNavigation } from '../../types'
+import { Container, SubContainer } from './styles'
 
 const company = {
   name: 'Sementes OAgro LTDA'
 }
-export function Home() {
+
+export interface NavigationProps {
+  navigation: NativeStackNavigationProp<MainNavigation, 'Home'>
+}
+
+export function Home({ navigation }: NavigationProps) {
   return (
     <Container>
-      <Header>
-        <Title> {company.name} </Title>
-        <Icon name="dots-vertical" />
-      </Header>
+      <HeaderTitle iconName="dots-vertical" title={company.name} />
       <SubContainer>
-        <HomeInterface />
+        <HomeInterface navigation={navigation} />
       </SubContainer>
     </Container>
   )

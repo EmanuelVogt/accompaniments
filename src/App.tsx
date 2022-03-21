@@ -1,16 +1,18 @@
+import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import Toast from 'react-native-toast-message'
 import { ThemeProvider } from 'styled-components'
 
 import theme from './global/theme'
 import { toastConfig } from './global/toast.config'
-import { Accompaniments } from './screens/Accompaniments'
-import { Home } from './screens/Home'
+import { AppRoutes } from './routes/app.routes'
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
       <Toast config={toastConfig} />
     </ThemeProvider>
   )

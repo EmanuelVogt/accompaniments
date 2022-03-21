@@ -19,6 +19,10 @@ import com.reactnativecommunity.picker.RNCPickerPackage;
 import expo.modules.ExpoModulesPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
+// react-native-safe-area-context
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+// react-native-screens
+import com.swmansion.rnscreens.RNScreensPackage;
 
 public class PackageList {
   private Application application;
@@ -67,7 +71,9 @@ public class PackageList {
       new RNDateTimePickerPackage(),
       new RNCPickerPackage(),
       new ExpoModulesPackage(),
-      new RNGestureHandlerPackage()
+      new RNGestureHandlerPackage(),
+      new SafeAreaContextPackage(),
+      new RNScreensPackage()
     ));
   }
 }

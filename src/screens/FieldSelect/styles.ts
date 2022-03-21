@@ -8,23 +8,12 @@ export const Container = styled.View`
 
 export const SubContainer = styled.View`
   background-color: ${({ theme }) => theme.colors.secondary_light};
-  margin: 24px 24px;
-  padding: 24px 24px;
-  height: 80%;
-  border-radius: 12px;
+  padding: ${RFValue(10)}px ${RFValue(10)}px;
+  height: 90%;
+  margin: ${RFValue(5)}px ${RFValue(10)}px;
+  border-radius: 5px;
 `
-export const Header = styled.View`
-  width: 100%;
-  height: ${RFValue(113)}PX;
-  background-color: ${({ theme }) => theme.colors.primary};
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 19px;
-`
-export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.shape};
-  font-size: ${RFValue(18)}px;
-`
+
 export const Field = styled.TouchableOpacity`
   width: 100%;
   padding: ${RFValue(15)}px;
@@ -33,7 +22,7 @@ export const Field = styled.TouchableOpacity`
 `
 
 export const Name = styled.Text`
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(16)}px;
   color: #000;
 `
 export const Divider = styled.View`

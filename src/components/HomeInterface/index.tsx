@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Modal, ScrollView } from 'react-native'
 
+import { NavigationProps } from '../../screens/Home'
 import { CropSelect, Crop } from '../controllers/CropSelect'
+import { HeaderTitle } from '../controllers/HeaderTitle'
 import {
   Container,
   SelectCropButton,
@@ -22,12 +24,11 @@ import {
   PreRegistrationField
 } from './styles'
 
-export function HomeInterface() {
-  const [modalState, setModalState] = useState<boolean>(false)
-  function handleStateModal() {
-    setModalState(!modalState)
+export function HomeInterface({ navigation }: NavigationProps) {
+  const [cropModalState, setCrpopModalState] = useState<boolean>(false)
+  function handleCropStateModal() {
+    setCrpopModalState(!cropModalState)
   }
-
   const [crop, setCrop] = useState<Crop>({
     key: '',
     name: 'Selecione'
@@ -35,14 +36,18 @@ export function HomeInterface() {
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <SelectCropButton onPress={handleStateModal}>
+        <SelectCropButton onPress={handleCropStateModal}>
           <TitleSelect> Safra Selecionada: </TitleSelect>
           <CropSelected> {crop.name} </CropSelected>
           <Icon name="chevron-down" />
         </SelectCropButton>
         <FieldActivity>
           <Title> Atividades de Campo </Title>
-          <FieldActivityButton>
+          <FieldActivityButton
+            onPress={() => {
+              navigation.push('FieldSelect')
+            }}
+          >
             <IconTwo name="list" />
             <ButtonText>LISTAGEM DE CAMPO</ButtonText>
           </FieldActivityButton>
@@ -87,8 +92,8 @@ export function HomeInterface() {
           </DefaultButton>
         </PreRegistrationField>
       </ScrollView>
-      <Modal visible={modalState} animationType="fade">
-        <CropSelect crop={crop} setCrop={setCrop} closeModal={handleStateModal} />
+      <Modal visible={cropModalState} animationType="fade">
+        <CropSelect crop={crop} setCrop={setCrop} closeModal={handleCropStateModal} />
       </Modal>
     </Container>
   )

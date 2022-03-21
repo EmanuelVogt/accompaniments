@@ -100,7 +100,7 @@ export const RoutePlaning = styled.View`
 export const Manegament = styled.View`
   width: 100%;
   height: ${RFValue(250)}px;
-  background-color: ${({ theme }) => theme.colors.shape};
+  background-color: ${({ theme }) => theme.colors.shape};  
   margin-top: ${RFValue(10)}px;
   border-radius: 5px;
   padding: ${RFValue(5)}px ${RFValue(5)}px;

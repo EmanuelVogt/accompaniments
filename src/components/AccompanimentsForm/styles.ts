@@ -30,3 +30,8 @@ export const Divider = styled.View`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.primary};
 `
+export const FieldProduction = styled.Text`
+  color: ${({ theme }) => theme.colors.text_black};
+  font-size: 16px;
+  margin: 15px 0;
+`
