@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.secondary_light};
   border-radius: ${RFValue(5)}px;
   padding: ${RFValue(10)}px ${RFValue(10)}px;
 `
