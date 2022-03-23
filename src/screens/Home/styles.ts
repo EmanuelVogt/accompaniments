@@ -1,9 +1,9 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.secondary_light};
+
 `
 
 export const Header = styled.View`
@@ -21,10 +21,7 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-size: 20px;
 `
-export const Icon = styled(MaterialCommunityIcons)`
-  font-size: ${RFValue(24)}px;
-  color: ${({ theme }) => theme.colors.shape};
-`
+
 export const SubContainer = styled.View`
   flex: 1;
   padding: 0 14px;
