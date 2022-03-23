@@ -3,7 +3,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
 export const Container = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.colors.background_input};
+  background-color: ${({ theme }) => theme.colors.shape};
   flex-direction: row;
   justify-content: space-between;
   border-radius: 5px;

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, ScrollView } from 'react-native'
 
-import { NavigationProps } from '../../screens/Home'
 import { CropSelect, Crop } from '../controllers/CropSelect'
 import { HeaderTitle } from '../controllers/HeaderTitle'
 import {
@@ -24,7 +23,7 @@ import {
   PreRegistrationField
 } from './styles'
 
-export function HomeInterface({ navigation }: NavigationProps) {
+export function HomeInterface({ navigation }) {
   const [cropModalState, setCrpopModalState] = useState<boolean>(false)
   function handleCropStateModal() {
     setCrpopModalState(!cropModalState)
@@ -45,7 +44,7 @@ export function HomeInterface({ navigation }: NavigationProps) {
           <Title> Atividades de Campo </Title>
           <FieldActivityButton
             onPress={() => {
-              navigation.push('FieldSelect')
+              navigation.navigate('FieldSelect')
             }}
           >
             <IconTwo name="list" />

@@ -7,7 +7,7 @@ export const Container = styled.View`
 `
 
 export const SubContainer = styled.View`
-  background-color: ${({ theme }) => theme.colors.secondary_light};
+  background-color: ${({ theme }) => theme.colors.shape};
   padding: ${RFValue(10)}px ${RFValue(10)}px;
   height: 90%;
   margin: ${RFValue(5)}px ${RFValue(10)}px;

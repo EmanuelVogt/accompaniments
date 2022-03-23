@@ -9,7 +9,7 @@ export function HeaderTitle({ title, iconName }: Props) {
   return (
     <Header>
       <Title> {title} </Title>
-      <Icon name={iconName} />
+      <Icon name="dots-vertical" />
     </Header>
   )
 }

@@ -37,9 +37,7 @@ interface FormData {
   observations: string
 }
 
-export function AccompanimentsForm({ route }) {
-  const { field } = route.params
-  console.log(field)
+export function AccompanimentsForm() {
   const {
     control,
     handleSubmit,
@@ -81,7 +79,7 @@ export function AccompanimentsForm({ route }) {
             <Form>
               <SubContainer>
                 <Label title="Campo de produção:" />
-                <FieldProduction>{field.name}</FieldProduction>
+                <FieldProduction>'aaaaaa'</FieldProduction>
                 <Divider />
                 <Label title="Data:" />
                 <DatePiker date={date} setDate={setDate} />

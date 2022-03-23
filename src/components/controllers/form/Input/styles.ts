@@ -5,7 +5,7 @@ export const Container = styled.TextInput`
   width: 100%;
   padding: ${RFValue(8)}px ${RFValue(16)}px;
   font-size: ${RFValue(12)}px;
-  background-color: ${({ theme }) => theme.colors.background_input};
+  background-color: ${({ theme }) => theme.colors.shape};
   color: black;
   border-radius: 5px;
   margin-bottom: ${RFValue(8)}px;

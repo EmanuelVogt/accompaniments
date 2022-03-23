@@ -11,6 +11,7 @@ export const Header = styled.View`
   justify-content: space-between;
   align-items: center;
   padding: ${RFValue(5)}px ${RFValue(10)}px;
+  margin-top: ${RFValue(50)}px;
 `
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};

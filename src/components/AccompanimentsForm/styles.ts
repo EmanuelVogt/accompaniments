@@ -2,29 +2,20 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
-  margin: 0 ${RFValue(10)}px;
-  height: 90%;
+  height: 100%;
   background-color: ${({ theme }) => theme.colors.secondary_light};
-  border-radius: 5px;
-  padding: 0 14px;
-`
-
-export const Title = styled.Text`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.text_black};
-  font-size: 24px;
+  border-radius: ${RFValue(5)}px;
 `
 export const Form = styled.View`
   flex: 1;
   width: 100%;
-  padding: 20px;
+  padding: 0 ${RFValue(20)}px;
   justify-content: space-between;
   margin-bottom: ${RFValue(20)}px;
 `
 export const SubContainer = styled.View`
   margin-bottom: ${RFValue(20)}px;
 `
-
 export const Divider = styled.View`
   height: 1px;
   width: 100%;
@@ -32,6 +23,6 @@ export const Divider = styled.View`
 `
 export const FieldProduction = styled.Text`
   color: ${({ theme }) => theme.colors.text_black};
-  font-size: 16px;
-  margin: 15px 0;
+  font-size: ${RFValue(16)}px;
+  margin: ${RFValue(5)}px 0;
 `
