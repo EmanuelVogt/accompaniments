@@ -15,6 +15,7 @@ MERGED from [:react-native-gesture-handler] /home/emanuel/Desktop/accompaniments
 MERGED from [:react-native-safe-area-context] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-screens] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:expo-application] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-application/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:expo-camera] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-camera/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-13:12
 MERGED from [:expo-constants] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-constants/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:expo-file-system] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-37:12
 MERGED from [:expo-font] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-font/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
@@ -28,6 +29,7 @@ MERGED from [com.facebook.fresco:fresco:2.2.0] /home/emanuel/.gradle/caches/tran
 MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /home/emanuel/.gradle/caches/transforms-3/a0d4b24636013f5d34f3d7cf50637af6/transformed/jetified-imagepipeline-okhttp3-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:animated-gif:2.0.0] /home/emanuel/.gradle/caches/transforms-3/33664d3cc331a2c9a457a062cf5a1cbf/transformed/jetified-animated-gif-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:webpsupport:2.0.0] /home/emanuel/.gradle/caches/transforms-3/fe3cc8f0acca5028764e0004fa4e44db/transformed/jetified-webpsupport-2.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:14:1-34:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/emanuel/.gradle/caches/transforms-3/4db381dced9171ba19dfe838d5691390/transformed/legacy-support-v4-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/emanuel/.gradle/caches/transforms-3/453b051ebd805c39d6e3e73854f6db55/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/emanuel/.gradle/caches/transforms-3/0987919b273058ddcb20bc952c74d208/transformed/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -55,6 +57,7 @@ MERGED from [androidx.core:core-ktx:1.6.0] /home/emanuel/.gradle/caches/transfor
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/emanuel/.gradle/caches/transforms-3/9fa8f4dba8e9faaa5fd9b9ae5fb311f6/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.fragment:fragment:1.2.1] /home/emanuel/.gradle/caches/transforms-3/7b5fb814f3ced17bcc4aff07f638b6b1/transformed/fragment-1.2.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/emanuel/.gradle/caches/transforms-3/f2d639d4ca8f0a8a5abd82e4bd490b91/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.exifinterface:exifinterface:1.0.0] /home/emanuel/.gradle/caches/transforms-3/b449ca099d7c81dcfb9f3942062cf639/transformed/exifinterface-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/emanuel/.gradle/caches/transforms-3/f3a8a4bdef3e23b5fd71a316c1019ed6/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/emanuel/.gradle/caches/transforms-3/36ca67b5d4ef10d2db3bb55ec7df9689/transformed/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /home/emanuel/.gradle/caches/transforms-3/29f50cd6758075268688d053fd44b896/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -164,6 +167,8 @@ MERGED from [:expo-modules-core] /home/emanuel/Desktop/accompaniments-react-expo
 MERGED from [:expo-modules-core] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-modules-core/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-15:19
 MERGED from [com.facebook.react:react-native:0.64.3] /home/emanuel/.gradle/caches/transforms-3/c83d8cd8e93de341b85eaf10eaef508a/transformed/jetified-react-native-0.64.3/AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.react:react-native:0.64.3] /home/emanuel/.gradle/caches/transforms-3/c83d8cd8e93de341b85eaf10eaef508a/transformed/jetified-react-native-0.64.3/AndroidManifest.xml:11:5-20
+MERGED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:32:5-20
+MERGED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:32:5-20
 MERGED from [com.facebook.soloader:soloader:0.9.0] /home/emanuel/.gradle/caches/transforms-3/d0e1e3ced29d7b50b3bd951f40e6e9b9/transformed/jetified-soloader-0.9.0/AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.soloader:soloader:0.9.0] /home/emanuel/.gradle/caches/transforms-3/d0e1e3ced29d7b50b3bd951f40e6e9b9/transformed/jetified-soloader-0.9.0/AndroidManifest.xml:11:5-20
 MERGED from [com.google.android.material:material:1.1.0] /home/emanuel/.gradle/caches/transforms-3/442232dfc3bd4636261367c7466b9eb8/transformed/material-1.1.0/AndroidManifest.xml:22:5-20
@@ -282,6 +287,8 @@ MERGED from [:react-native-screens] /home/emanuel/Desktop/accompaniments-react-e
 MERGED from [:react-native-screens] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:expo-application] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-application/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:expo-application] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-application/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:expo-camera] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-camera/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:expo-camera] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-camera/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:expo-constants] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-constants/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:expo-constants] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-constants/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:expo-file-system] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
@@ -308,6 +315,8 @@ MERGED from [com.facebook.fresco:animated-gif:2.0.0] /home/emanuel/.gradle/cache
 MERGED from [com.facebook.fresco:animated-gif:2.0.0] /home/emanuel/.gradle/caches/transforms-3/33664d3cc331a2c9a457a062cf5a1cbf/transformed/jetified-animated-gif-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:webpsupport:2.0.0] /home/emanuel/.gradle/caches/transforms-3/fe3cc8f0acca5028764e0004fa4e44db/transformed/jetified-webpsupport-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:webpsupport:2.0.0] /home/emanuel/.gradle/caches/transforms-3/fe3cc8f0acca5028764e0004fa4e44db/transformed/jetified-webpsupport-2.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/emanuel/.gradle/caches/transforms-3/4db381dced9171ba19dfe838d5691390/transformed/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/emanuel/.gradle/caches/transforms-3/4db381dced9171ba19dfe838d5691390/transformed/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/emanuel/.gradle/caches/transforms-3/453b051ebd805c39d6e3e73854f6db55/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
@@ -362,6 +371,8 @@ MERGED from [androidx.fragment:fragment:1.2.1] /home/emanuel/.gradle/caches/tran
 MERGED from [androidx.fragment:fragment:1.2.1] /home/emanuel/.gradle/caches/transforms-3/7b5fb814f3ced17bcc4aff07f638b6b1/transformed/fragment-1.2.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/emanuel/.gradle/caches/transforms-3/f2d639d4ca8f0a8a5abd82e4bd490b91/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/emanuel/.gradle/caches/transforms-3/f2d639d4ca8f0a8a5abd82e4bd490b91/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.0.0] /home/emanuel/.gradle/caches/transforms-3/b449ca099d7c81dcfb9f3942062cf639/transformed/exifinterface-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.0.0] /home/emanuel/.gradle/caches/transforms-3/b449ca099d7c81dcfb9f3942062cf639/transformed/exifinterface-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/emanuel/.gradle/caches/transforms-3/f3a8a4bdef3e23b5fd71a316c1019ed6/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/emanuel/.gradle/caches/transforms-3/f3a8a4bdef3e23b5fd71a316c1019ed6/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/emanuel/.gradle/caches/transforms-3/36ca67b5d4ef10d2db3bb55ec7df9689/transformed/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
@@ -432,6 +443,12 @@ uses-permission#android.permission.ACCESS_WIFI_STATE
 ADDED from [com.facebook.flipper:flipper:0.54.0] /home/emanuel/.gradle/caches/transforms-3/62ece1a98ef095db320a1cbbfb42e6fd/transformed/jetified-flipper-0.54.0/AndroidManifest.xml:16:5-76
 	android:name
 		ADDED from [com.facebook.flipper:flipper:0.54.0] /home/emanuel/.gradle/caches/transforms-3/62ece1a98ef095db320a1cbbfb42e6fd/transformed/jetified-flipper-0.54.0/AndroidManifest.xml:16:22-73
+uses-permission#android.permission.CAMERA
+ADDED from [:expo-camera] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-camera/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-65
+MERGED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:23:5-65
+MERGED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:23:5-65
+	android:name
+		ADDED from [:expo-camera] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-camera/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-62
 intent#action:name:android.intent.action.OPEN_DOCUMENT_TREE
 ADDED from [:expo-file-system] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-21:18
 action#android.intent.action.OPEN_DOCUMENT_TREE
@@ -462,6 +479,18 @@ ADDED from [:expo-modules-core] /home/emanuel/Desktop/accompaniments-react-expo/
 		ADDED from [:expo-modules-core] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-modules-core/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-86
 	android:name
 		ADDED from [:expo-modules-core] /home/emanuel/Desktop/accompaniments-react-expo/accompaniments/node_modules/expo-modules-core/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-79
+uses-feature#android.hardware.camera
+ADDED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:25:5-27:36
+	android:required
+		ADDED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:27:9-33
+	android:name
+		ADDED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:26:9-47
+uses-feature#android.hardware.camera.autofocus
+ADDED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:28:5-30:36
+	android:required
+		ADDED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:30:9-33
+	android:name
+		ADDED from [com.google.android:cameraview:1.0.0] /home/emanuel/.gradle/caches/transforms-3/ec0e32a2d9a484ad7f4d70ac3f309eea/transformed/jetified-cameraview-1.0.0/AndroidManifest.xml:29:9-57
 uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
 ADDED from [com.android.installreferrer:installreferrer:1.0] /home/emanuel/.gradle/caches/transforms-3/1b400fa089813c5c78209327344bbf9d/transformed/jetified-installreferrer-1.0/AndroidManifest.xml:9:5-110
 	android:name

@@ -3702,6 +3702,13 @@
     <style name="Widget.AppCompat.TextView.SpinnerItem" parent="Base.Widget.AppCompat.TextView.SpinnerItem"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
+    <style name="Widget.CameraView" parent="android:Widget">
+        <item name="android:adjustViewBounds">false</item>
+        <item name="facing">back</item>
+        <item name="aspectRatio">4:3</item>
+        <item name="autoFocus">true</item>
+        <item name="flash">auto</item>
+    </style>
     <style name="Widget.Compat.NotificationActionContainer" parent=""/>
     <style name="Widget.Compat.NotificationActionText" parent=""/>
     <style name="Widget.Design.AppBarLayout" parent="android:Widget">
@@ -5320,6 +5327,23 @@
              enough space to lay them out side-by-side. -->
         <attr format="boolean" name="allowStacking"/>
     </declare-styleable>
+    <declare-styleable name="CameraView"><attr name="android:adjustViewBounds"/><attr format="enum" name="facing">
+            
+            <enum name="back" value="0"/>
+            
+            <enum name="front" value="1"/>
+        </attr><attr format="string" name="aspectRatio"/><attr format="boolean" name="autoFocus"/><attr format="enum" name="flash">
+            
+            <enum name="off" value="0"/>
+            
+            <enum name="on" value="1"/>
+            
+            <enum name="torch" value="2"/>
+            
+            <enum name="auto" value="3"/>
+            
+            <enum name="redEye" value="4"/>
+        </attr></declare-styleable>
     <declare-styleable name="Capability">
         <!-- Resource reference to the string array of query patterns for a custom capability. -->
         <attr format="reference" name="queryPatterns"/>

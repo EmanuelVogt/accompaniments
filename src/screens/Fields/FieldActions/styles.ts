@@ -7,7 +7,7 @@ export const Container = styled.View`
   border-radius: ${RFValue(5)}px;
   padding: ${RFValue(10)}px ${RFValue(10)}px;
 `
-export const Header = styled.View`
+export const Header = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.colors.primary};
   height: ${RFValue(40)}px;
   border-radius: ${RFValue(5)}px;
