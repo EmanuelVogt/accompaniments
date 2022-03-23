@@ -1,37 +1,52 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 
-import { Accompaniments } from '../screens/Accompaniments'
+import { AccompanimentsForm } from '../components/AccompanimentsForm'
 import { FieldSelect } from '../screens/FieldSelect'
+import { Field } from '../screens/Fields'
+import { FieldActionsModal } from '../screens/Fields/FieldActions'
 import { Home } from '../screens/Home'
-import { MainNavigation } from '../types'
+import { RootStackParamList } from '../types/navigation'
 
-const MainStack = createNativeStackNavigator<MainNavigation>()
+const MainStack = createNativeStackNavigator<RootStackParamList>()
 
 export function AppRoutes() {
   return (
-    <MainStack.Navigator initialRouteName="Home">
+    <MainStack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#2c8a8f'
+        },
+        headerTintColor: '#fff'
+      }}
+    >
+      <MainStack.Screen options={{ headerShown: false }} name="Home" component={Home} />
       <MainStack.Screen
-        options={{
-          headerShown: false
-        }}
-        name="Home"
-        component={Home}
+        options={({ route }) => ({ title: route.params.name })}
+        name="Field"
+        component={Field}
       />
       <MainStack.Screen
         options={{
-          headerShown: false
-        }}
-        name="Accompaniments"
-        component={Accompaniments}
-      />
-      <MainStack.Screen
-        options={{
-          headerShown: false
+          title: 'Selecionar campo',
+          animation: 'slide_from_right'
         }}
         name="FieldSelect"
         component={FieldSelect}
       />
+      <MainStack.Screen
+        options={{ title: 'Adicione...', animation: 'slide_from_right' }}
+        name="AccompanimentForm"
+        component={AccompanimentsForm}
+      />
+      <MainStack.Group screenOptions={{ presentation: 'modal', animation: 'slide_from_bottom' }}>
+        <MainStack.Screen
+          options={{ headerShown: false }}
+          name="FieldActions"
+          component={FieldActionsModal}
+        />
+      </MainStack.Group>
     </MainStack.Navigator>
   )
 }
