@@ -1,42 +1,36 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
 import { FlatList } from 'react-native'
 
 import { fields } from '../../api/fakeData/fields'
-import { MainNavigation } from '../../types'
-import { Container, Header, Title, Field, Name, Divider, SubContainer } from './styles'
+import { HeaderTitle } from '../../components/controllers/HeaderTitle'
+import { RootStackScreenProps } from '../../types/navigation'
+import { Container, Field, Name, Divider, SubContainer } from './styles'
 
-interface NavigationProps {
-  navigation: NativeStackNavigationProp<MainNavigation, 'FieldSelect'>
-}
+interface Props extends RootStackScreenProps<'FieldSelect'> {}
 
-export function FieldSelect({ navigation }: NavigationProps) {
+export function FieldSelect({ navigation }: Props) {
   return (
-    <>
-      <Container>
-        <Header>
-          <Title> Selecione o Campo </Title>
-        </Header>
-        <SubContainer>
-          <FlatList
-            data={fields}
-            style={{ flex: 1, width: '100%' }}
-            keyExtractor={(item) => item.key}
-            renderItem={({ item }) => (
-              <Field
-                onPress={() => {
-                  navigation.push('Accompaniments', {
-                    field: item
-                  })
-                }}
-              >
-                <Name> {item.name} </Name>
-              </Field>
-            )}
-            ItemSeparatorComponent={() => <Divider />}
-          />
-        </SubContainer>
-      </Container>
-    </>
+    <Container>
+      <SubContainer>
+        <FlatList
+          data={fields}
+          style={{ flex: 1, width: '100%' }}
+          keyExtractor={(item) => item.key}
+          renderItem={({ item }) => (
+            <Field
+              onPress={() => {
+                navigation.navigate('Field', {
+                  name: item.name,
+                  key: item.key
+                })
+              }}
+            >
+              <Name> {item.name} </Name>
+            </Field>
+          )}
+          ItemSeparatorComponent={() => <Divider />}
+        />
+      </SubContainer>
+    </Container>
   )
 }
