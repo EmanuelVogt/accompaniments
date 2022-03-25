@@ -1,15 +1,45 @@
-import React, { useState } from 'react'
-import { Modal } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage/lib/typescript/AsyncStorage'
+import React, { useEffect, useState } from 'react'
+import { Image, Modal, Text, View } from 'react-native'
 
-import { OpenCamera } from '../Camera'
+import { OpenCamera } from '../OpenCamera'
 import { Clip, Container, Icon, Photo } from './styles'
-export function ImageButtons() {
-  const [openCamera, setOpenCamera] = useState(false)
 
+export type ImageType = {
+  uri: string
+  description?: string
+}
+export function ImageButtons() {
+  const [modalCameraState, setModalCameraState] = useState(false)
+  const [images, setImages] = useState<ImageType[]>()
   function handleOpenCamera() {
-    setOpenCamera(!openCamera)
-    console.log(openCamera)
+    setModalCameraState(!modalCameraState)
   }
+
+  function handleSetImages(data: ImageType) {
+    const totalImages = [
+      {
+        uri: '1'
+      }
+    ]
+    totalImages.push({ uri: '2' })
+    console.log(totalImages)
+  }
+
+  const data = []
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@IMAGES')
+      data.push(jsonValue != null ? JSON.parse(jsonValue) : null)
+    } catch (e) {
+      // error reading value
+    }
+  }
+  getData()
+  useEffect(() => {
+    setImages(data)
+  }, [])
+
   return (
     <>
       <Container>
@@ -20,9 +50,20 @@ export function ImageButtons() {
           <Icon name="paperclip" />
         </Clip>
       </Container>
-      <Modal visible={openCamera}>
-        <OpenCamera setClose={handleOpenCamera} />
-      </Modal>
+      <View style={{ flex: 1, backgroundColor: '#a3a', height: 100, flexDirection: 'row' }}>
+        {images?.map((item) => (
+          <Image
+            key={item.uri}
+            source={{ uri: item.uri }}
+            style={{ width: '100%', height: 100, borderRadius: 20, flex: 0.3 }}
+          />
+        ))}
+      </View>
+      {modalCameraState && (
+        <Modal animationType="slide" visible={modalCameraState}>
+          <OpenCamera setClose={handleOpenCamera} />
+        </Modal>
+      )}
     </>
   )
 }
