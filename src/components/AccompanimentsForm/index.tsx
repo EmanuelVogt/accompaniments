@@ -14,6 +14,7 @@ import { InputForm } from '../controllers/form/InputForm'
 import { Label } from '../controllers/form/Label'
 import { SwitchButton } from '../controllers/form/Switch'
 import { Container, Form, SubContainer, Divider, FieldProduction } from './styles'
+import { Gallery } from '../controllers/Gallery'
 
 const schema = Yup.object().shape({
   area: Yup.number()
@@ -54,8 +55,6 @@ export function AccompanimentsForm() {
     setHasPrecipitation(state)
   }
   function onSubmit(data: FormData) {
-    console.log(data)
-
     if (date === 'Selecionar Data') {
       Toast.show({
         position: 'top',
@@ -126,6 +125,7 @@ export function AccompanimentsForm() {
                 <Divider />
                 <Label title="Imagens:" />
                 <ImageButtons />
+                <Gallery />
                 <Label title="Audios:" />
                 <AudioButton />
                 <Divider />

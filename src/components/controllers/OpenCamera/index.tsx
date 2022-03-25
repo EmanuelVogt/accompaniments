@@ -7,6 +7,7 @@ import { Icon, CameraOffIcon, Input } from './styles'
 interface Props {
   setClose: () => void
 }
+
 export function OpenCamera({ setClose }: Props) {
   const [hasPermission, setHasPermission] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back)
@@ -21,16 +22,13 @@ export function OpenCamera({ setClose }: Props) {
   }
 
   async function handleSavePicture() {
-    const value = { uri: image, description }
+    const imageSubmit = { uri: image, description }
     try {
-      const getImages = await AsyncStorage.getItem('@IMAGES')
-      const parsedImages = JSON.parse(getImages)
-      const data = []
-      data.push(value, ...parsedImages)
-      const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem('@IMAGES', jsonValue)
+      const items = await AsyncStorage.getItem('@IMAGE')
+      const currentData = items ? JSON.parse(items) : []
+      const dataFormated = [...currentData, imageSubmit]
+      await AsyncStorage.setItem('@IMAGE', JSON.stringify(dataFormated))
     } catch (e) {}
-    setClose()
     setOpenImage(false)
   }
 
