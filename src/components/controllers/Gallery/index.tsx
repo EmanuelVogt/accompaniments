@@ -7,22 +7,22 @@ export function Gallery() {
       <ImageList>
         <ImageCard>
           <Header>
-            <EditButton />
-            <DeleteButton />
+            <EditButton name="square-edit-outline" />
+            <DeleteButton name="trash-can-outline" />
           </Header>
           <Image />
         </ImageCard>
         <ImageCard>
           <Header>
-            <EditButton />
-            <DeleteButton />
+            <EditButton name="square-edit-outline" />
+            <DeleteButton name="trash-can-outline" />
           </Header>
           <Image />
         </ImageCard>
         <ImageCard>
           <Header>
-            <EditButton />
-            <DeleteButton />
+            <EditButton name="square-edit-outline" />
+            <DeleteButton name="trash-can-outline" />
           </Header>
           <Image />
         </ImageCard>
