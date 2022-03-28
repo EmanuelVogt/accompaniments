@@ -1,20 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Alert, Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import { Alert, Button, Keyboard, ScrollView, Text, TouchableWithoutFeedback } from 'react-native'
 import Toast from 'react-native-toast-message'
 import * as Yup from 'yup'
 
+import { RootStackScreenProps } from '../../types/navigation'
 import { AudioButton } from '../controllers/AudioButton'
+import { Gallery } from '../controllers/Gallery'
 import { ImageButtons } from '../controllers/ImageButtons'
 import { PrecipitationForm } from '../controllers/PrecipitationForm'
-import { Button } from '../controllers/form/Button'
 import { DatePiker } from '../controllers/form/DatePiker'
 import { InputForm } from '../controllers/form/InputForm'
 import { Label } from '../controllers/form/Label'
-import { SwitchButton } from '../controllers/form/Switch'
-import { Container, Form, SubContainer, Divider, FieldProduction } from './styles'
-import { Gallery } from '../controllers/Gallery'
+import {
+  Container,
+  Form,
+  SubContainer,
+  Divider,
+  FieldProduction,
+  HeaderButton,
+  HeaderButtonTitle,
+  BackButton,
+  BackButtonIcon
+} from './styles'
 
 const schema = Yup.object().shape({
   area: Yup.number()
@@ -37,8 +48,30 @@ interface FormData {
   totalProductionTon: string
   observations: string
 }
-
-export function AccompanimentsForm() {
+interface Props extends RootStackScreenProps<'AccompanimentForm'> {}
+export function AccompanimentsForm({ navigation }: Props) {
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <BackButton
+          onPress={() => {
+            handleBackButtonPress()
+          }}
+        >
+          <BackButtonIcon name="arrow-left" />
+        </BackButton>
+      ),
+      headerRight: () => (
+        <HeaderButton
+          onPress={() => {
+            handleSubmit(onSubmit)
+          }}
+        >
+          <HeaderButtonTitle>Finalizar</HeaderButtonTitle>
+        </HeaderButton>
+      )
+    })
+  }, [navigation])
   const {
     control,
     handleSubmit,
@@ -48,12 +81,14 @@ export function AccompanimentsForm() {
     resolver: yupResolver(schema)
   })
   const [hasPrecipitation, setHasPrecipitation] = useState<boolean>(false)
-
+  const [images, setImages] = useState([])
   const [date, setDate] = useState('Selecionar Data')
-
+  const [countImage, setCountImage] = useState(0)
+  function handleBackButtonPress() {}
   function handleHasPrecipitation(state: boolean) {
     setHasPrecipitation(state)
   }
+
   function onSubmit(data: FormData) {
     if (date === 'Selecionar Data') {
       Toast.show({
@@ -69,6 +104,18 @@ export function AccompanimentsForm() {
     setDate('')
     Alert.alert('Dados enviados, direcionando para listagem')
   }
+
+  async function loadData() {
+    let currentData = []
+    const items = await AsyncStorage.getItem('@IMAGE')
+    currentData = items ? JSON.parse(items) : []
+    setImages(currentData)
+    console.log(images)
+  }
+
+  useEffect(() => {
+    loadData()
+  }, [countImage])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -120,17 +167,15 @@ export function AccompanimentsForm() {
                   multiline
                 />
                 <Divider />
-                <SwitchButton label="Houve precipitação?" setState={handleHasPrecipitation} />
-                {hasPrecipitation && <PrecipitationForm />}
+
                 <Divider />
                 <Label title="Imagens:" />
-                <ImageButtons />
-                <Gallery />
+                <ImageButtons setImageCount={setCountImage} imageCount={countImage} />
+                {countImage > 0 && <Gallery images={images} />}
                 <Label title="Audios:" />
                 <AudioButton />
                 <Divider />
               </SubContainer>
-              <Button onPress={handleSubmit(onSubmit)} title="Cadastrar" />
             </Form>
           </ScrollView>
         </Container>

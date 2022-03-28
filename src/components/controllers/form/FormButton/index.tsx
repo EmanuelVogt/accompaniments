@@ -6,7 +6,7 @@ import { Container, Title } from './styles'
 interface Props extends ButtonProps {
   title: string
 }
-export function Button({ title, ...rest }: Props) {
+export function FormButton({ title, ...rest }: Props) {
   return (
     <Container {...rest}>
       <Title> {title} </Title>

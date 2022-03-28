@@ -6,7 +6,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "userInterfaceStyle": "automatic"
+    "userInterfaceStyle": "automatic",
+    "android": {
+      "package": "com.sr.campo"
+    }
   },
   "name": "expo-bare-typescript"
 }
