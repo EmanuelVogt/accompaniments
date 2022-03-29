@@ -1,7 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Camera } from 'expo-camera'
+import * as MediaLibrary from 'expo-media-library'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { Modal, View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import {
+  Modal,
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert
+} from 'react-native'
 
 import { CameraOffIcon, Clip, Container, Icon, Input, Photo, IconTwo } from './styles'
 export type ImageType = {
@@ -21,6 +31,12 @@ export function ImageButtons({ setImageCount, imageCount }: Props) {
   const [openImage, setOpenImage] = useState(false)
   const [description, setDescription] = useState('')
   const [modalCameraState, setModalCameraState] = useState(false)
+  const [status, requestPermission] = MediaLibrary.usePermissions()
+  const [cameraRollUri, setCameraRollUri] = useState(null)
+
+  if (!status) {
+    requestPermission()
+  }
 
   function handleClosePictureModal() {
     setImage(null)
@@ -30,18 +46,31 @@ export function ImageButtons({ setImageCount, imageCount }: Props) {
   async function handleSavePicture() {
     const imageSubmit = { uri: image, description }
     try {
-      const items = await AsyncStorage.getItem('@IMAGE')
-      const currentData = items ? JSON.parse(items) : []
-      const dataFormated = [...currentData, imageSubmit]
-      await AsyncStorage.setItem('@IMAGE', JSON.stringify(dataFormated))
-    } catch (e) {}
-    setOpenImage(false)
-    setImageCount(imageCount + 1)
+      const cachedAsset = await MediaLibrary.createAssetAsync(imageSubmit.uri)
+      const album = await MediaLibrary.getAlbumAsync('sr-campo')
+      if (album === null) {
+        console.log('estou aqui')
+        await MediaLibrary.createAlbumAsync('sr-campo', cachedAsset)
+        setCameraRollUri(cachedAsset.uri)
+      } else {
+        const assetAdded = await MediaLibrary.addAssetsToAlbumAsync(cachedAsset, album.id)
+        if (assetAdded === true) {
+        } else {
+          console.log('ASSET ADD ERROR')
+        }
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   useEffect(() => {
     ;(async () => {
       const { status } = await Camera.requestCameraPermissionsAsync()
+      setHasPermission(status === 'granted')
+    })()
+    ;(async () => {
+      const { status } = await MediaLibrary.getPermissionsAsync()
       setHasPermission(status === 'granted')
     })()
   }, [])

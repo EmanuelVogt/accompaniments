@@ -168,7 +168,6 @@ export function AccompanimentsForm({ navigation }: Props) {
                 />
                 <Divider />
 
-                <Divider />
                 <Label title="Imagens:" />
                 <ImageButtons setImageCount={setCountImage} imageCount={countImage} />
                 {countImage > 0 && <Gallery images={images} />}
