@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { yupResolver } from '@hookform/resolvers/yup'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Alert, Button, Keyboard, ScrollView, Text, TouchableWithoutFeedback } from 'react-native'
+import { Alert, Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import Toast from 'react-native-toast-message'
 import * as Yup from 'yup'
 
@@ -49,7 +49,7 @@ interface FormData {
   observations: string
 }
 interface Props extends RootStackScreenProps<'AccompanimentForm'> {}
-export function AccompanimentsForm({ navigation }: Props) {
+export function AccompanimentsForm({ navigation, route }: Props) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -169,7 +169,7 @@ export function AccompanimentsForm({ navigation }: Props) {
                 <Divider />
 
                 <Label title="Imagens:" />
-                <ImageButtons setImageCount={setCountImage} imageCount={countImage} />
+                <ImageButtons navigation={navigation} route={route} formName="AccompanimentForm" />
                 {countImage > 0 && <Gallery images={images} />}
                 <Label title="Audios:" />
                 <AudioButton />
