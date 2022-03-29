@@ -1,6 +1,6 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 export const Container = styled.View`
   height: 100%;
   background-color: ${({ theme }) => theme.colors.secondary_light};
