@@ -37,6 +37,7 @@
     "expo-camera": "~12.1.2",
     "expo-media-library": "~14.0.0",
     "expo-splash-screen": "~0.14.1",
+    "expo-sqlite": "~10.1.0",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -52,7 +53,9 @@
     "react-native-web": "0.17.1",
     "react-native-webview": "^11.17.2",
     "react-navigation": "^4.4.4",
+    "reflect-metadata": "^0.1.13",
     "styled-components": "^5.3.3",
+    "typeorm": "0.2.28",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -61,6 +64,7 @@
     "@types/react-native": "~0.64.12",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^8.5.0",
     "eslint-config-universe": "^9.0.0",
     "eslint-import-resolver-typescript": "^2.5.0",
