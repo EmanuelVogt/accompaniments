@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 
 import { AccompanimentsForm } from '../components/AccompanimentsForm'
+import { OpenCamera } from '../screens/Camera'
 import { FieldSelect } from '../screens/FieldSelect'
 import { Field } from '../screens/Fields'
 import { FieldActionsModal } from '../screens/Fields/FieldActions'
@@ -39,6 +40,11 @@ export function AppRoutes() {
         options={{ title: 'Adicione...', animation: 'slide_from_right' }}
         name="AccompanimentForm"
         component={AccompanimentsForm}
+      />
+      <MainStack.Screen
+        options={{ headerShown: false, animation: 'slide_from_right' }}
+        name="Camera"
+        component={OpenCamera}
       />
       <MainStack.Group screenOptions={{ presentation: 'modal', animation: 'slide_from_bottom' }}>
         <MainStack.Screen
