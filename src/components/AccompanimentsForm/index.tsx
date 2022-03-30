@@ -170,7 +170,7 @@ export function AccompanimentsForm({ navigation, route }: Props) {
 
                 <Label title="Imagens:" />
                 <ImageButtons navigation={navigation} route={route} formName="AccompanimentForm" />
-                {countImage > 0 && <Gallery images={images} />}
+                <Gallery />
                 <Label title="Audios:" />
                 <AudioButton />
                 <Divider />

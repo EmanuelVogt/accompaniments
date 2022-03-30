@@ -1,6 +1,6 @@
 import { Camera } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Modal, SafeAreaView, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native'
 
 import { useDatabaseConnection } from '../../database'
@@ -11,7 +11,6 @@ interface Props extends RootStackScreenProps<'Camera'> {}
 
 export function OpenCamera({ navigation, route }: Props) {
   const { imagesRepository } = useDatabaseConnection()
-
   const [hasPermission, setHasPermission] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back)
   const [image, setImage] = useState(null)
@@ -50,23 +49,7 @@ export function OpenCamera({ navigation, route }: Props) {
   }
   async function handleSavePicture() {
     const imageSubmit = { uri: image, description }
-    try {
-      const cachedAsset = await MediaLibrary.createAssetAsync(imageSubmit.uri)
-      const album = await MediaLibrary.getAlbumAsync('sr-campo')
-      if (album === null) {
-        await MediaLibrary.createAlbumAsync('sr-campo', cachedAsset, false)
-        setCameraRollUri(cachedAsset.uri)
-      } else {
-        const assetAdded = await MediaLibrary.addAssetsToAlbumAsync(cachedAsset, album.id, false)
-        if (assetAdded === true) {
-          navigation.goBack()
-        } else {
-          console.log('ASSET ADD ERROR')
-        }
-      }
-    } catch (e) {
-      console.log(e)
-    }
+    await imagesRepository.create({ uri: imageSubmit.uri, description: imageSubmit.description })
   }
 
   const takePicture = async () => {

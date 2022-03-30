@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
+import React, { useCallback, useEffect, useReducer, useState } from 'react'
 
+import { useDatabaseConnection } from '../../../database'
 import {
   Container,
   ImageList,
@@ -15,15 +16,16 @@ import {
   DeleteIconButton
 } from './styles'
 
-type ImageProps = {
-  uri: string
-  description: string
-}
-interface Props {
-  images: ImageProps[]
-}
+export function Gallery() {
+  const { imagesRepository } = useDatabaseConnection()
 
-export function Gallery({ images }: Props) {
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    imagesRepository.getAll().then(setImages)
+  }, [imagesRepository])
+
+  console.log('aaa', images)
   return (
     <Container>
       <ImageList>
@@ -39,7 +41,6 @@ export function Gallery({ images }: Props) {
             </Header>
             <ImageContainer>
               <Image source={{ uri: item.uri }} />
-              <ImageDescription>{item.description}</ImageDescription>
             </ImageContainer>
           </ImageCard>
         ))}

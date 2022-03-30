@@ -2,10 +2,9 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { ActivityIndicator } from 'react-native'
 import { Connection, createConnection } from 'typeorm'
 
-import { Images } from './entities/Images'
+import { entities } from './entities'
 import { databaseMigrations } from './migrations'
 import { ImagesRepository } from './repositories/ImagesRepository'
-
 interface DatabaseConnectionContextData {
   imagesRepository: ImagesRepository
 }
@@ -22,9 +21,9 @@ export const DatabaseConnectionProvider: React.FC = ({ children }) => {
       type: 'expo',
       database: 'sr-campo.db',
       driver: require('expo-sqlite'),
-      entities: [Images],
+      entities: entities(),
 
-      migrations: [databaseMigrations],
+      migrations: databaseMigrations(),
       migrationsRun: true,
 
       synchronize: false
