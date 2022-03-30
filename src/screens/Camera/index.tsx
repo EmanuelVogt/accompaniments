@@ -3,10 +3,15 @@ import * as MediaLibrary from 'expo-media-library'
 import React, { useEffect, useState } from 'react'
 import { Modal, SafeAreaView, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native'
 
+import { useDatabaseConnection } from '../../database'
 import { RootStackScreenProps } from '../../types/navigation'
 import { CameraOffIcon, IconTwo, Input } from './styles'
+
 interface Props extends RootStackScreenProps<'Camera'> {}
+
 export function OpenCamera({ navigation, route }: Props) {
+  const { imagesRepository } = useDatabaseConnection()
+
   const [hasPermission, setHasPermission] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back)
   const [image, setImage] = useState(null)
