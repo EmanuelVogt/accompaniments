@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, ScrollView } from 'react-native'
-import { RootStackScreenProps } from '../../types/navigation'
 
 import { CropSelect, Crop } from '../controllers/CropSelect'
-import { HeaderTitle } from '../controllers/HeaderTitle'
 import {
   Container,
   SelectCropButton,
@@ -23,7 +21,6 @@ import {
   DefaultButton,
   PreRegistrationField
 } from './styles'
-
 
 export function HomeInterface({ navigation }) {
   const [cropModalState, setCrpopModalState] = useState<boolean>(false)
