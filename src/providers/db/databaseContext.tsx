@@ -1,12 +1,12 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
-import { Connection, createConnection } from 'typeorm'
+import { Connection } from 'typeorm'
 
-import { entities } from './entities'
-import { databaseMigrations } from './migrations'
-import { ImagesRepository } from './repositories/ImagesRepository'
+import { ImagesRepository } from '../../repositories/ImagesRepository'
+import { DatabaseProvider } from './database'
 interface DatabaseConnectionContextData {
   imagesRepository: ImagesRepository
+  database: DatabaseProvider
 }
 
 const DatabaseConnectionContext = createContext<DatabaseConnectionContextData>(
@@ -15,19 +15,10 @@ const DatabaseConnectionContext = createContext<DatabaseConnectionContextData>(
 
 export const DatabaseConnectionProvider: React.FC = ({ children }) => {
   const [connection, setConnection] = useState<Connection | null>(null)
+  const databaseProvider = new DatabaseProvider(connection)
 
   const connect = useCallback(async () => {
-    const createdConnection = await createConnection({
-      type: 'expo',
-      database: 'sr-campo.db',
-      driver: require('expo-sqlite'),
-      entities: entities(),
-
-      migrations: databaseMigrations(),
-      migrationsRun: true,
-
-      synchronize: false
-    })
+    const createdConnection = await databaseProvider.createConnection()
 
     setConnection(createdConnection)
   }, [])
@@ -45,7 +36,8 @@ export const DatabaseConnectionProvider: React.FC = ({ children }) => {
   return (
     <DatabaseConnectionContext.Provider
       value={{
-        imagesRepository: new ImagesRepository(connection)
+        imagesRepository: new ImagesRepository(connection),
+        database: new DatabaseProvider(connection)
       }}
     >
       {children}

@@ -14,11 +14,11 @@ export class imageTables1648669285926 implements MigrationInterface {
             generationStrategy: 'increment'
           },
           {
-            name: 'text',
+            name: 'uri',
             type: 'text'
           },
           {
-            name: 'is_toggled',
+            name: 'description',
             type: 'boolean'
           }
         ]

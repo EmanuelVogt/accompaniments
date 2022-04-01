@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { useDatabaseConnection } from '../../../database'
+import { useDatabaseConnection } from '../../../providers/db/databaseContext'
 import {
   Container,
   ImageList,

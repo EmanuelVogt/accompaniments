@@ -3,11 +3,10 @@ import React from 'react'
 import Toast from 'react-native-toast-message'
 import { ThemeProvider } from 'styled-components'
 
-import { DatabaseConnectionProvider } from './database'
 import theme from './global/theme'
 import { toastConfig } from './global/toast.config'
+import { DatabaseConnectionProvider } from './providers/db/databaseContext'
 import { AppRoutes } from './routes/app.routes'
-
 export default function App() {
   return (
     <ThemeProvider theme={theme}>

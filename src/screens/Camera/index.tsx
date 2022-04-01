@@ -1,9 +1,9 @@
 import { Camera } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, SafeAreaView, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native'
 
-import { useDatabaseConnection } from '../../database'
+import { useDatabaseConnection } from '../../providers/db/databaseContext'
 import { RootStackScreenProps } from '../../types/navigation'
 import { CameraOffIcon, IconTwo, Input } from './styles'
 
