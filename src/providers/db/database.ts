@@ -25,13 +25,11 @@ export class DatabaseProvider {
   }
 
   public async reinitialize() {
-    if (this.db_connection !== undefined) {
-      const drop = await this.db_connection.dropDatabase()
-      console.log(drop)
-      Promise.resolve()
+    try {
+      await this.db_connection.dropDatabase()
+    } catch (error) {
+      console.log(error)
     }
-
-    console.log('faio')
   }
 
   private databaseOptions(): any {

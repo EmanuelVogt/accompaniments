@@ -31,8 +31,7 @@ export function HomeInterface({ navigation }) {
   }
 
   const handleResetDatabase = async () => {
-    const a = await database.reinitialize()
-    console.log(a)
+    await database.reinitialize()
   }
   const [crop, setCrop] = useState<Crop>({
     key: '',

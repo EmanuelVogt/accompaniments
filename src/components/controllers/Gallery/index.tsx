@@ -30,7 +30,7 @@ export function Gallery() {
     <Container>
       <ImageList>
         {images.map((item) => (
-          <ImageCard key={item.uri}>
+          <ImageCard key={item.id}>
             <Header>
               <EditButton>
                 <EditIconButton name="square-edit-outline" />
