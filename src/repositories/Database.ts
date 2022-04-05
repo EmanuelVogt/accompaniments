@@ -1,9 +1,17 @@
-import { getConnection } from 'typeorm'
+import { Connection } from 'typeorm'
+import { openDatabase, Query } from 'expo-sqlite'
+export class DatabaseRepository {
+  private db_connection: Connection
 
-export class Database {
-  private database = getConnection('default')
+  constructor(connection: Connection) {
+    this.db_connection = connection
+  }
 
-  public async create() {
-    this.database.dropDatabase()
+  public async drop() {
+    try {
+    } catch (error) {
+      console.log(error)
+    } finally {
+    }
   }
 }
