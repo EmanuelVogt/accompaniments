@@ -1,16 +1,15 @@
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { Camera } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
 import React, { useEffect, useState } from 'react'
 import { Modal, SafeAreaView, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native'
 
-import { useDatabaseConnection } from '../../providers/db/databaseContext'
 import { RootStackScreenProps } from '../../types/navigation'
 import { CameraOffIcon, IconTwo, Input } from './styles'
-
+import uuid from 'react-native-uuid'
 interface Props extends RootStackScreenProps<'Camera'> {}
 
 export function OpenCamera({ navigation, route }: Props) {
-  const { imagesRepository } = useDatabaseConnection()
   const [hasPermission, setHasPermission] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back)
   const [image, setImage] = useState(null)
@@ -18,7 +17,7 @@ export function OpenCamera({ navigation, route }: Props) {
   const [openImage, setOpenImage] = useState(false)
   const [description, setDescription] = useState('')
   const [status, requestPermission] = MediaLibrary.usePermissions()
-  const [cameraRollUri, setCameraRollUri] = useState(null)
+  const asyncStorage = useAsyncStorage('@SR-CAMPO')
 
   useEffect(() => {
     ;(async () => {
@@ -48,8 +47,12 @@ export function OpenCamera({ navigation, route }: Props) {
     return <Text>No access to camera</Text>
   }
   async function handleSavePicture() {
-    const imageSubmit = { uri: image, description }
-    await imagesRepository.create({ uri: imageSubmit.uri, description: imageSubmit.description })
+    const imageSubmit = { uri: image, description, id: uuid.v4() }
+    const items = await asyncStorage.getItem()
+    const itemsParsed = items ? JSON.parse(items) : []
+    const dataSubmit = [...itemsParsed, imageSubmit]
+    await asyncStorage.setItem(JSON.stringify(dataSubmit))
+    navigation.goBack()
   }
 
   const takePicture = async () => {

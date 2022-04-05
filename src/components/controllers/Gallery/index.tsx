@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback, useState } from 'react'
 
-import { useDatabaseConnection } from '../../../providers/db/databaseContext'
 import {
   Container,
   ImageList,
@@ -17,13 +18,20 @@ import {
 } from './styles'
 
 export function Gallery() {
-  const { imagesRepository } = useDatabaseConnection()
-
+  const asyncStorage = useAsyncStorage('@SR-CAMPO')
   const [images, setImages] = useState([])
 
-  useEffect(() => {
-    imagesRepository.getAll().then(setImages)
-  }, [imagesRepository])
+  async function loadData() {
+    const images = await asyncStorage.getItem()
+    const imagesParsed = images ? JSON.parse(images) : []
+    setImages(imagesParsed)
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadData()
+    }, [])
+  )
 
   if (images.length > 0) {
     return (
@@ -42,6 +50,7 @@ export function Gallery() {
               <ImageContainer>
                 <Image source={{ uri: item.uri }} />
               </ImageContainer>
+              <ImageDescription>{item.description}</ImageDescription>
             </ImageCard>
           ))}
         </ImageList>
