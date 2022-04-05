@@ -27,6 +27,7 @@ export function HomeInterface({ navigation }) {
   function handleCropStateModal() {
     setCrpopModalState(!cropModalState)
   }
+
   const [crop, setCrop] = useState<Crop>({
     key: '',
     name: 'Selecione'

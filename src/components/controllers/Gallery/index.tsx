@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { useDatabaseConnection } from '../../../providers/db/databaseContext'
 import {
   Container,
   ImageList,
@@ -15,35 +16,38 @@ import {
   DeleteIconButton
 } from './styles'
 
-type ImageProps = {
-  uri: string
-  description: string
-}
-interface Props {
-  images: ImageProps[]
-}
+export function Gallery() {
+  const { imagesRepository } = useDatabaseConnection()
 
-export function Gallery({ images }: Props) {
-  return (
-    <Container>
-      <ImageList>
-        {images.map((item) => (
-          <ImageCard key={item.uri}>
-            <Header>
-              <EditButton>
-                <EditIconButton name="square-edit-outline" />
-              </EditButton>
-              <DeleteButton>
-                <DeleteIconButton name="trash-can-outline" />
-              </DeleteButton>
-            </Header>
-            <ImageContainer>
-              <Image source={{ uri: item.uri }} />
-              <ImageDescription>{item.description}</ImageDescription>
-            </ImageContainer>
-          </ImageCard>
-        ))}
-      </ImageList>
-    </Container>
-  )
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    imagesRepository.getAll().then(setImages)
+  }, [imagesRepository])
+
+  if (images.length > 0) {
+    return (
+      <Container>
+        <ImageList>
+          {images.map((item) => (
+            <ImageCard key={item.id}>
+              <Header>
+                <EditButton>
+                  <EditIconButton name="square-edit-outline" />
+                </EditButton>
+                <DeleteButton>
+                  <DeleteIconButton name="trash-can-outline" />
+                </DeleteButton>
+              </Header>
+              <ImageContainer>
+                <Image source={{ uri: item.uri }} />
+              </ImageContainer>
+            </ImageCard>
+          ))}
+        </ImageList>
+      </Container>
+    )
+  } else {
+    return null
+  }
 }
