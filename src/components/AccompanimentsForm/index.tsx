@@ -105,18 +105,6 @@ export function AccompanimentsForm({ navigation, route }: Props) {
     Alert.alert('Dados enviados, direcionando para listagem')
   }
 
-  async function loadData() {
-    let currentData = []
-    const items = await AsyncStorage.getItem('@IMAGE')
-    currentData = items ? JSON.parse(items) : []
-    setImages(currentData)
-    console.log(images)
-  }
-
-  useEffect(() => {
-    loadData()
-  }, [countImage])
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <>
