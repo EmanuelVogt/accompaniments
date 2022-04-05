@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Modal, ScrollView } from 'react-native'
 
-import { useDatabaseConnection } from '../../providers/db/databaseContext'
 import { CropSelect, Crop } from '../controllers/CropSelect'
 import {
   Container,
@@ -25,14 +24,10 @@ import {
 
 export function HomeInterface({ navigation }) {
   const [cropModalState, setCrpopModalState] = useState<boolean>(false)
-  const { database } = useDatabaseConnection()
   function handleCropStateModal() {
     setCrpopModalState(!cropModalState)
   }
 
-  const handleResetDatabase = async () => {
-    await database.reinitialize()
-  }
   const [crop, setCrop] = useState<Crop>({
     key: '',
     name: 'Selecione'
@@ -56,7 +51,7 @@ export function HomeInterface({ navigation }) {
             <ButtonText>LISTAGEM DE CAMPO</ButtonText>
           </FieldActivityButton>
           <FieldActivityContainer>
-            <QrCodeButton onPress={() => handleResetDatabase()}>
+            <QrCodeButton>
               <IconTwo name="qrcode" />
               <ButtonText style={{ fontSize: 14 }}>QR CODE</ButtonText>
             </QrCodeButton>
