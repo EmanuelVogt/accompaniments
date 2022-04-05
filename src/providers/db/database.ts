@@ -13,29 +13,11 @@ export class DatabaseProvider {
   public async createConnection() {
     return (this.db_connection = await createConnection(this.databaseOptions()))
   }
-  public async initDatabase() {
-    if (this.db_connection === undefined) {
-      this.db_connection = await createConnection(this.databaseOptions())
-    }
-    await this.db_connection.runMigrations()
-  }
-
-  public async closeConnection() {
-    this.db_connection.close()
-  }
-
-  public async reinitialize() {
-    try {
-      await this.db_connection.dropDatabase()
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   private databaseOptions(): any {
     return {
       type: 'expo',
-      database: 'teste2.db',
+      database: 'teste',
       driver: require('expo-sqlite'),
       entities: entities(),
       migrations: migrations(),
