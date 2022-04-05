@@ -2,11 +2,12 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { ActivityIndicator } from 'react-native'
 import { Connection } from 'typeorm'
 
+import { DatabaseRepository } from '../../repositories/Database'
 import { ImagesRepository } from '../../repositories/ImagesRepository'
 import { DatabaseProvider } from './database'
 interface DatabaseConnectionContextData {
   imagesRepository: ImagesRepository
-  database: DatabaseProvider
+  database: DatabaseRepository
 }
 
 const DatabaseConnectionContext = createContext<DatabaseConnectionContextData>(
@@ -37,7 +38,7 @@ export const DatabaseConnectionProvider: React.FC = ({ children }) => {
     <DatabaseConnectionContext.Provider
       value={{
         imagesRepository: new ImagesRepository(connection),
-        database: new DatabaseProvider(connection)
+        database: new DatabaseRepository(connection)
       }}
     >
       {children}
