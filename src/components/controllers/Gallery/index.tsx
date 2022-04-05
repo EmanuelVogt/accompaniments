@@ -25,26 +25,29 @@ export function Gallery() {
     imagesRepository.getAll().then(setImages)
   }, [imagesRepository])
 
-  console.log('aaa', images)
-  return (
-    <Container>
-      <ImageList>
-        {images.map((item) => (
-          <ImageCard key={item.id}>
-            <Header>
-              <EditButton>
-                <EditIconButton name="square-edit-outline" />
-              </EditButton>
-              <DeleteButton>
-                <DeleteIconButton name="trash-can-outline" />
-              </DeleteButton>
-            </Header>
-            <ImageContainer>
-              <Image source={{ uri: item.uri }} />
-            </ImageContainer>
-          </ImageCard>
-        ))}
-      </ImageList>
-    </Container>
-  )
+  if (images.length > 0) {
+    return (
+      <Container>
+        <ImageList>
+          {images.map((item) => (
+            <ImageCard key={item.id}>
+              <Header>
+                <EditButton>
+                  <EditIconButton name="square-edit-outline" />
+                </EditButton>
+                <DeleteButton>
+                  <DeleteIconButton name="trash-can-outline" />
+                </DeleteButton>
+              </Header>
+              <ImageContainer>
+                <Image source={{ uri: item.uri }} />
+              </ImageContainer>
+            </ImageCard>
+          ))}
+        </ImageList>
+      </Container>
+    )
+  } else {
+    return null
+  }
 }
