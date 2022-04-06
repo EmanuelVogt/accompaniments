@@ -10,6 +10,7 @@ import { RootStackScreenProps } from '../../types/navigation'
 import { AudioButton } from '../controllers/AudioButton'
 import { Gallery } from '../controllers/Gallery'
 import { ImageButtons } from '../controllers/ImageButtons'
+import { PrecipitationForm } from '../controllers/PrecipitationForm'
 import { DatePiker } from '../controllers/form/DatePiker'
 import { InputForm } from '../controllers/form/InputForm'
 import { Label } from '../controllers/form/Label'
@@ -78,12 +79,8 @@ export function AccompanimentsForm({ navigation, route }: Props) {
   } = useForm<any>({
     resolver: yupResolver(schema)
   })
-  const [hasPrecipitation, setHasPrecipitation] = useState<boolean>(false)
   const [date, setDate] = useState('Selecionar Data')
   function handleBackButtonPress() {}
-  function handleHasPrecipitation(state: boolean) {
-    setHasPrecipitation(state)
-  }
 
   function onSubmit(data: FormData) {
     if (date === 'Selecionar Data') {
@@ -151,7 +148,8 @@ export function AccompanimentsForm({ navigation, route }: Props) {
                   multiline
                 />
                 <Divider />
-
+                <PrecipitationForm />
+                <Divider />
                 <Label title="Imagens:" />
                 <ImageButtons navigation={navigation} route={route} formName="AccompanimentForm" />
                 <Gallery />
