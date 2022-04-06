@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Audio } from 'expo-av'
+import * as MediaLibrary from 'expo-media-library'
 import React, { useState } from 'react'
 
 import { Container, Icon, AudioSubContainer } from './styles'
@@ -31,7 +32,11 @@ export function AudioButton() {
     setRecording(undefined)
     await recording.stopAndUnloadAsync()
     const uri = recording.getURI()
-    console.log('Recording stopped and stored at', uri)
+    const assetAudio = await MediaLibrary.createAssetAsync(uri)
+    const albumAsync = await MediaLibrary.getAlbumAsync('sr-campo')
+    if (albumAsync) {
+      await MediaLibrary.addAssetsToAlbumAsync([assetAudio], albumAsync)
+    }
   }
   return (
     <Container>
