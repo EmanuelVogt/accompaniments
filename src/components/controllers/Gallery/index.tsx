@@ -32,7 +32,15 @@ export function Gallery() {
       loadData()
     }, [])
   )
-
+  async function handleDeletImage(val: string) {
+    const images = await asyncStorage.getItem()
+    const imagesParsed = images ? JSON.parse(images) : []
+    const imageDeleted = imagesParsed.filter((index: any) => {
+      return index.id !== val
+    })
+    setImages(imageDeleted)
+    await asyncStorage.setItem(JSON.stringify(imageDeleted))
+  }
   if (images.length > 0) {
     return (
       <Container>
@@ -43,7 +51,7 @@ export function Gallery() {
                 <EditButton>
                   <EditIconButton name="square-edit-outline" />
                 </EditButton>
-                <DeleteButton>
+                <DeleteButton onPress={() => handleDeletImage(item.id)}>
                   <DeleteIconButton name="trash-can-outline" />
                 </DeleteButton>
               </Header>

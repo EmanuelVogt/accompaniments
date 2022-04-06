@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { yupResolver } from '@hookform/resolvers/yup'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Alert, Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import Toast from 'react-native-toast-message'
@@ -11,7 +10,6 @@ import { RootStackScreenProps } from '../../types/navigation'
 import { AudioButton } from '../controllers/AudioButton'
 import { Gallery } from '../controllers/Gallery'
 import { ImageButtons } from '../controllers/ImageButtons'
-import { PrecipitationForm } from '../controllers/PrecipitationForm'
 import { DatePiker } from '../controllers/form/DatePiker'
 import { InputForm } from '../controllers/form/InputForm'
 import { Label } from '../controllers/form/Label'
@@ -81,9 +79,7 @@ export function AccompanimentsForm({ navigation, route }: Props) {
     resolver: yupResolver(schema)
   })
   const [hasPrecipitation, setHasPrecipitation] = useState<boolean>(false)
-  const [images, setImages] = useState([])
   const [date, setDate] = useState('Selecionar Data')
-  const [countImage, setCountImage] = useState(0)
   function handleBackButtonPress() {}
   function handleHasPrecipitation(state: boolean) {
     setHasPrecipitation(state)
