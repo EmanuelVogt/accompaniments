@@ -1,12 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { Audio } from 'expo-av'
 import * as MediaLibrary from 'expo-media-library'
 import React, { useState } from 'react'
+import uuid from 'react-native-uuid'
 
 import { Container, Icon, AudioSubContainer } from './styles'
 export function AudioButton() {
   const [recording, setRecording] = useState<Audio.Recording>()
   const [isRecording, setIsRecording] = useState<boolean>()
+  const asyncStorage = useAsyncStorage('@SR-CAMPO-AUDIO')
   async function startRecording() {
     try {
       setIsRecording(true)
@@ -37,10 +40,19 @@ export function AudioButton() {
     if (albumAsync) {
       await MediaLibrary.addAssetsToAlbumAsync([assetAudio], albumAsync)
     }
+    const audios = await asyncStorage.getItem()
+    const audiosParsed = audios ? JSON.parse(audios) : []
+
+    const audioSubmit = { uri, id: uuid.v4() }
+    const dataSubmit = [...audiosParsed, audioSubmit]
+    await asyncStorage.setItem(JSON.stringify(dataSubmit))
   }
   return (
     <Container>
-      <AudioSubContainer onPressIn={() => startRecording()} onPressOut={() => stopRecording()}>
+      <AudioSubContainer
+        onPressIn={() => setTimeout(() => startRecording(), 1000)}
+        onPressOut={() => stopRecording()}
+      >
         {isRecording ? (
           <FontAwesome5 name="record-vinyl" size={16} color="red" />
         ) : (

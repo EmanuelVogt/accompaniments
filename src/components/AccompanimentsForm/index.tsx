@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 
 import { RootStackScreenProps } from '../../types/navigation'
 import { AudioButton } from '../controllers/AudioButton'
+import { AudioPlayer } from '../controllers/AudioPlayer'
 import { Gallery } from '../controllers/Gallery'
 import { ImageButtons } from '../controllers/ImageButtons'
 import { PrecipitationForm } from '../controllers/PrecipitationForm'
@@ -155,7 +156,7 @@ export function AccompanimentsForm({ navigation, route }: Props) {
                 <Gallery />
                 <Label title="Audios:" />
                 <AudioButton />
-                <Divider />
+                <AudioPlayer />
               </SubContainer>
             </Form>
           </ScrollView>

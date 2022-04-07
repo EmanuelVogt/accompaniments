@@ -3,10 +3,10 @@ import { Camera } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
 import React, { useEffect, useState } from 'react'
 import { Modal, SafeAreaView, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native'
+import uuid from 'react-native-uuid'
 
 import { RootStackScreenProps } from '../../types/navigation'
 import { CameraOffIcon, IconTwo, Input } from './styles'
-import uuid from 'react-native-uuid'
 interface Props extends RootStackScreenProps<'Camera'> {}
 
 export function OpenCamera({ navigation, route }: Props) {
