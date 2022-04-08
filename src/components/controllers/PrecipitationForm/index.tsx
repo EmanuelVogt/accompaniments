@@ -4,7 +4,7 @@ import { Switch } from 'react-native'
 import { DatePiker } from '../form/DatePiker'
 import { Input } from '../form/Input'
 import { Label } from '../form/Label'
-import { Container } from './styles'
+import { Container, SwithContainer } from './styles'
 
 export function PrecipitationForm() {
   const [date, setDate] = useState('Selecionar Data')
@@ -14,13 +14,16 @@ export function PrecipitationForm() {
 
   return (
     <>
-      <Switch
-        trackColor={{ false: '#ffffff', true: '#969cb2' }}
-        thumbColor={isEnabled ? '#2c8a8f' : '#969cb2'}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+      <SwithContainer>
+        <Label title="Houve precipitação?:" />
+        <Switch
+          trackColor={{ false: '#ffffff', true: '#969cb2' }}
+          thumbColor={isEnabled ? '#2c8a8f' : '#969cb2'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      </SwithContainer>
       {isEnabled && (
         <Container>
           <Label title="Data da Precipitação:" style={{ color: '#Ffffff' }} />

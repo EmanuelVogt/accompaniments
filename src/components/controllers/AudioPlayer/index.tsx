@@ -2,8 +2,6 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Slider from '@react-native-community/slider'
 import { Audio } from 'expo-av'
 import React, { useEffect, useState } from 'react'
-import { Text } from 'react-native'
-import { number } from 'yup'
 
 import {
   Container,
@@ -17,7 +15,6 @@ import {
 
 export function AudioPlayer() {
   const [audios, setAudios] = useState([])
-  const [audioCount, setAudioCount] = useState(1)
   const asyncStorage = useAsyncStorage('@SR-CAMPO-AUDIO')
   function handleOpenActionSheet(asset: string) {}
   async function loadAudios() {
