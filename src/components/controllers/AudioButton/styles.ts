@@ -6,10 +6,11 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: ${RFValue(8)}px;
-  margin-bottom: ${RFValue(20)}px;
+  margin-bottom: ${RFValue(8)}px;
 `
-export const Audio = styled.TouchableOpacity`
+export const AudioSubContainer = styled.TouchableOpacity`
   width: 100%;
+  height: 40px;
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 6px;
