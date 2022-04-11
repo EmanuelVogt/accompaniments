@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 export const Container = styled.View`
   height: ${RFPercentage(33)}px;
-  border-radius: ${RFValue(4)}px;
+  border-radius: ${RFValue(5)}px;
   background-color: ${({ theme }) => theme.colors.primary};
   padding: ${RFValue(2)}px ${RFValue(10)}px;
   margin-bottom: ${RFValue(5)}px;

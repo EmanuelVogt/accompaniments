@@ -17,6 +17,7 @@ export function PrecipitationForm() {
       <SwithContainer>
         <Label title="Houve precipitação?:" />
         <Switch
+          style={{ marginTop: 20 }}
           trackColor={{ false: '#ffffff', true: '#969cb2' }}
           thumbColor={isEnabled ? '#2c8a8f' : '#969cb2'}
           ios_backgroundColor="#3e3e3e"

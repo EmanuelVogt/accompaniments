@@ -1,5 +1,6 @@
 import { AntDesign, Entypo } from '@expo/vector-icons'
 import styled from 'styled-components/native'
+
 export const Container = styled.View`
   flex: 1;
   height: 50px;
@@ -40,4 +41,17 @@ export const DeleteButton = styled.TouchableOpacity`
 export const DeleteIcon = styled(Entypo)`
   font-size: 35px;
   color: ${({ theme }) => theme.colors.attention_light};
+`
+
+export const CloseModalButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`
+
+export const CloseModalIcon = styled(AntDesign)`
+  font-size: 38px;
+  color: ${({ theme }) => theme.colors.primary};
 `

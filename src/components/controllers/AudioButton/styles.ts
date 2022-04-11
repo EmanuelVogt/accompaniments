@@ -10,6 +10,7 @@ export const Container = styled.View`
 `
 export const AudioSubContainer = styled.TouchableOpacity`
   width: 100%;
+  height: 40px;
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 6px;

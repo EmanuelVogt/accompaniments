@@ -50,7 +50,8 @@ export function AudioButton() {
   return (
     <Container>
       <AudioSubContainer
-        onPressIn={() => setTimeout(() => startRecording(), 1000)}
+        delayPressIn={300}
+        onPressIn={() => startRecording()}
         onPressOut={() => stopRecording()}
       >
         {isRecording ? (
