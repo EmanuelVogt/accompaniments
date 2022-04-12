@@ -28,8 +28,6 @@ export function AudioPlayer() {
 
   const sound = useRef<Audio.Sound>(new Audio.Sound())
 
-  const [loaded, setLoaded] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [playing, setPlaying] = useState(false)
   const [duration, setDuration] = useState(0)
   const [value, setValue] = useState(0)
@@ -37,19 +35,14 @@ export function AudioPlayer() {
   const [valueMillis, setValueMillis] = useState(0)
 
   async function handlePlayAudioModal(asset?: string) {
-    setLoading(true)
     const status = await sound.current.getStatusAsync()
     if (status.isLoaded === false) {
       try {
         const loadAudio = await sound.current.loadAsync({ uri: asset }, {}, true)
         if (loadAudio.isLoaded === false) {
-          setLoading(false)
-          setLoaded(false)
           Alert.alert('Error', 'Invalid Audio')
         } else {
           sound.current.setOnPlaybackStatusUpdate(updateStatus)
-          setLoading(false)
-          setLoaded(true)
           setDuration(loadAudio.durationMillis)
           setDurationMillis(loadAudio.durationMillis)
           setValueMillis(loadAudio.positionMillis)
@@ -58,13 +51,19 @@ export function AudioPlayer() {
           setModalVisible(true)
         }
       } catch (error) {
-        setLoaded(false)
-        setLoading(false)
+        console.log(error)
       }
-    } else {
-      setLoading(false)
-      setLoaded(true)
     }
+  }
+
+  async function handleDeletImage(val: string) {
+    const audios = await asyncStorage.getItem()
+    const audiosParsed = audios ? JSON.parse(audios) : []
+    const audioDeleted = audiosParsed.filter((index: any) => {
+      return index.id !== val
+    })
+    setAudios(audioDeleted)
+    await asyncStorage.setItem(JSON.stringify(audioDeleted))
   }
 
   const playPauseAudio = async () => {
@@ -180,7 +179,7 @@ export function AudioPlayer() {
                 <PlayerButton onPress={() => handlePlayAudioModal(item.uri)}>
                   <PlayerIcon name="playcircleo" />
                 </PlayerButton>
-                <DeleteButton>
+                <DeleteButton onPress={() => handleDeletImage(item.id)}>
                   <DeleteIcon name="trash" />
                 </DeleteButton>
               </PlayerContainer>
@@ -229,11 +228,7 @@ export function AudioPlayer() {
                 }}
               >
                 <Text>{millisToMinutesAndSeconds(valueMillis)}</Text>
-                <Text>
-                  {playing
-                    ? millisToMinutesAndSeconds(durationMillis)
-                    : millisToMinutesAndSeconds(durationMillis)}
-                </Text>
+                <Text>{millisToMinutesAndSeconds(durationMillis)}</Text>
               </View>
             </View>
           </View>
