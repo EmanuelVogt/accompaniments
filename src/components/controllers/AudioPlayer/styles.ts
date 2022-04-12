@@ -47,11 +47,27 @@ export const CloseModalButton = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 10px;
 `
 
 export const CloseModalIcon = styled(AntDesign)`
-  font-size: 38px;
+  font-size: 34px;
+  color: ${({ theme }) => theme.colors.primary};
+`
+
+export const PlayPauseButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+`
+export const PlayIcon = styled(AntDesign)`
+  font-size: 34px;
+  color: ${({ theme }) => theme.colors.primary};
+`
+export const PauseIcon = styled(AntDesign)`
+  font-size: 34px;
   color: ${({ theme }) => theme.colors.primary};
 `

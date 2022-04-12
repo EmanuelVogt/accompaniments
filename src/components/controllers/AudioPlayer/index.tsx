@@ -2,9 +2,8 @@
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Slider from '@react-native-community/slider'
 import { Audio } from 'expo-av'
-import { AVPlaybackStatus } from 'expo-av/build/AV.types'
-import React, { useCallback, useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { View, Text, Alert } from 'react-native'
 import Modal from 'react-native-modal'
 
 import {
@@ -16,104 +15,134 @@ import {
   SoudsList,
   DeleteIcon,
   CloseModalButton,
-  CloseModalIcon
+  CloseModalIcon,
+  PlayPauseButton,
+  PlayIcon,
+  PauseIcon
 } from './styles'
 
 export function AudioPlayer() {
   const [audios, setAudios] = useState([])
   const asyncStorage = useAsyncStorage('@SR-CAMPO-AUDIO')
   const [isModalVisible, setModalVisible] = useState(false)
-  const [onSlide, setOnSlide] = useState(false)
-  const [playbackObject, setPlaybackObject] = useState<Audio.Sound>()
-  const [playbackStatus, setPlaybackStatus] = useState<AVPlaybackStatus>()
-  const [currentPosition, setCurrentPosition] = useState(0)
-  const [audioDuration, setAudioDuration] = useState(0)
 
-  const handleOpenAudioModal = async (asset?: string) => {
-    if (playbackObject && !playbackStatus) {
-      const status = await playbackObject.loadAsync(
-        { uri: asset },
-        {
-          shouldPlay: true,
-          isLooping: true,
-          seekMillisToleranceAfter: 1000,
-          seekMillisToleranceBefore: 1000,
-          progressUpdateIntervalMillis: 100,
-          shouldCorrectPitch: false
+  const sound = useRef<Audio.Sound>(new Audio.Sound())
+
+  const [loaded, setLoaded] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [playing, setPlaying] = useState(false)
+  const [duration, setDuration] = useState(0)
+  const [value, setValue] = useState(0)
+  const [durationMillis, setDurationMillis] = useState(0)
+  const [valueMillis, setValueMillis] = useState(0)
+
+  async function handlePlayAudioModal(asset?: string) {
+    setLoading(true)
+    const status = await sound.current.getStatusAsync()
+    if (status.isLoaded === false) {
+      try {
+        const loadAudio = await sound.current.loadAsync({ uri: asset }, {}, true)
+        if (loadAudio.isLoaded === false) {
+          setLoading(false)
+          setLoaded(false)
+          Alert.alert('Error', 'Invalid Audio')
+        } else {
+          sound.current.setOnPlaybackStatusUpdate(updateStatus)
+          setLoading(false)
+          setLoaded(true)
+          setDuration(loadAudio.durationMillis)
+          setDurationMillis(loadAudio.durationMillis)
+          setValueMillis(loadAudio.positionMillis)
+          sound.current.playAsync()
+          setPlaying(true)
+          setModalVisible(true)
         }
-      )
-      if (status.isLoaded) {
-        setAudioDuration(status.durationMillis)
+      } catch (error) {
+        setLoaded(false)
+        setLoading(false)
       }
-      setModalVisible(!isModalVisible)
-      setPlaybackStatus(status)
-
-      return
-    }
-
-    if (playbackObject && playbackStatus) {
-      await playbackObject.stopAsync()
-      const status = await playbackObject.unloadAsync()
-      setModalVisible(!isModalVisible)
-      console.log(status)
-      setPlaybackStatus(undefined)
-      setCurrentPosition(0)
+    } else {
+      setLoading(false)
+      setLoaded(true)
     }
   }
 
-  async function getCurrentPosition() {
-    const status = await playbackObject.getStatusAsync()
-    if (status.isLoaded) {
-      setCurrentPosition(status.positionMillis)
-    }
-  }
-  if (playbackStatus && !onSlide) {
-    setTimeout(async () => {
-      await getCurrentPosition()
-    }, 0)
-  }
-
-  function getSlideValue() {
-    const result = currentPosition / audioDuration
-    return Number(result.toFixed(2))
-  }
-
-  async function handleStopAudio(val: number) {
-    setOnSlide(true)
-    const status = await playbackObject.getStatusAsync()
-    if (status.isLoaded) {
-      const pauseStatus = await playbackObject.pauseAsync()
-      setPlaybackStatus(pauseStatus)
+  const playPauseAudio = async () => {
+    try {
+      const status = await sound.current.getStatusAsync()
+      if (status.isLoaded) {
+        if (status.isPlaying === false) {
+          setValueMillis(status.positionMillis)
+          sound.current.playAsync()
+          setPlaying(true)
+        } else {
+          sound.current.pauseAsync()
+          setValueMillis(status.positionMillis)
+          setPlaying(false)
+        }
+      }
+    } catch (error) {
+      setPlaying(false)
     }
   }
 
-  async function handlePlayAuido(val: number) {
-    setOnSlide(false)
-    const status = await playbackObject.getStatusAsync()
-    if (status.isLoaded) {
-      const playStatus = await playbackObject.playFromPositionAsync(val * audioDuration, {
-        toleranceMillisAfter: 1000,
-        toleranceMillisBefore: 1000
-      })
-      setPlaybackStatus(playStatus)
+  const seekUpdate = async (data) => {
+    try {
+      const checkLoading = await sound.current.getStatusAsync()
+      if (checkLoading.isLoaded === true) {
+        const result = (data / 100) * duration
+        await sound.current.setPositionAsync(Math.round(result))
+      }
+    } catch (error) {
+      console.log('Error')
+    }
+  }
+
+  const updateStatus = async (audio) => {
+    try {
+      if (audio.didJustFinish) {
+        resetPlayerAndCloseModal()
+      } else if (audio.positionMillis) {
+        if (audio.durationMillis) {
+          setValue((audio.positionMillis / audio.durationMillis) * 100)
+          setValueMillis(audio.positionMillis)
+        }
+      }
+    } catch (error) {
+      console.log('Error')
+    }
+  }
+
+  const resetPlayerAndCloseModal = async () => {
+    try {
+      const status = await sound.current.getStatusAsync()
+      if (status.isLoaded === true) {
+        setValue(0)
+        setPlaying(false)
+        await sound.current.setPositionAsync(0)
+        await sound.current.stopAsync()
+        await sound.current.unloadAsync()
+        setModalVisible(false)
+      }
+    } catch (error) {
+      console.log('Error')
     }
   }
 
   function millisToMinutesAndSeconds(millis: number) {
+    console.log(millis)
     const formatToDate = new Date(millis)
     const minutes = formatToDate.getMinutes()
     const seconds = formatToDate.getSeconds()
-
     if (minutes < 10 && seconds < 10) {
       return `0${formatToDate.getMinutes()}:0${formatToDate.getSeconds()}`
     }
-
     if (seconds < 10) {
       return `${minutes}:0${seconds}`
     }
-
     return `${minutes}:${seconds}`
   }
+
   async function loadAudios() {
     const audios = await asyncStorage.getItem()
     const audiosParsed = audios ? JSON.parse(audios) : []
@@ -126,12 +155,7 @@ export function AudioPlayer() {
     }, [loadAudios]),
     []
   )
-
-  useEffect(() => {
-    if (!playbackObject) {
-      setPlaybackObject(new Audio.Sound())
-    }
-  }, [])
+  console.log(valueMillis)
   if (audios.length !== 0) {
     return (
       <>
@@ -139,7 +163,7 @@ export function AudioPlayer() {
           {audios.map((item) => (
             <Container key={item.id}>
               <PlayerContainer>
-                <PlayerButton onPress={() => handleOpenAudioModal(item.uri)}>
+                <PlayerButton onPress={() => handlePlayAudioModal(item.uri)}>
                   <PlayerIcon name="playcircleo" />
                 </PlayerButton>
                 <DeleteButton>
@@ -154,35 +178,32 @@ export function AudioPlayer() {
             style={{
               backgroundColor: '#f3f3f3',
               width: '100%',
-              height: 140,
+              height: 120,
               borderRadius: 5,
               padding: 5
             }}
           >
             <CloseModalButton
               onPress={() => {
-                handleOpenAudioModal()
+                resetPlayerAndCloseModal()
               }}
             >
               <CloseModalIcon name="leftcircleo" />
             </CloseModalButton>
+
+            <PlayPauseButton onPress={() => playPauseAudio()}>
+              {playing ? <PauseIcon name="pausecircleo" /> : <PlayIcon name="playcircleo" />}
+            </PlayPauseButton>
+
             <View style={{ width: '100%', marginTop: 45 }}>
               <Slider
                 style={{ width: '100%', height: 40 }}
                 minimumValue={0}
-                value={getSlideValue()}
-                maximumValue={1}
-                minimumTrackTintColor="#000000"
+                maximumValue={100}
+                value={value}
                 maximumTrackTintColor="#000000"
-                onValueChange={(val) => {
-                  setCurrentPosition(Number((val * audioDuration).toFixed(0)))
-                }}
-                onSlidingStart={async (val) => {
-                  await handleStopAudio(val)
-                }}
-                onSlidingComplete={async (val) => {
-                  await handlePlayAuido(val)
-                }}
+                minimumTrackTintColor="#2c8a8f"
+                onSlidingComplete={(val) => seekUpdate(val)}
               />
               <View
                 style={{
@@ -192,8 +213,12 @@ export function AudioPlayer() {
                   marginRight: 15
                 }}
               >
-                <Text>{millisToMinutesAndSeconds(currentPosition)}</Text>
-                <Text>{millisToMinutesAndSeconds(audioDuration)}</Text>
+                <Text>{millisToMinutesAndSeconds(valueMillis)}</Text>
+                <Text>
+                  {playing
+                    ? millisToMinutesAndSeconds(durationMillis)
+                    : millisToMinutesAndSeconds(durationMillis)}
+                </Text>
               </View>
             </View>
           </View>
