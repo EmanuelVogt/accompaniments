@@ -86,12 +86,23 @@ export function AudioPlayer() {
     }
   }
 
+  const pauseAudio = async () => {
+    try {
+      const status = await sound.current.getStatusAsync()
+      if (status.isLoaded) {
+        sound.current.pauseAsync()
+        setPlaying(false)
+      }
+    } catch (e) {}
+  }
+
   const seekUpdate = async (data) => {
     try {
-      const checkLoading = await sound.current.getStatusAsync()
-      if (checkLoading.isLoaded === true) {
+      const status = await sound.current.getStatusAsync()
+      if (status.isLoaded === true) {
         const result = (data / 100) * duration
-        await sound.current.setPositionAsync(Math.round(result))
+        await sound.current.playFromPositionAsync(Math.round(result))
+        setPlaying(true)
       }
     } catch (error) {
       console.log('Error')
@@ -139,6 +150,9 @@ export function AudioPlayer() {
     }
     if (seconds < 10) {
       return `${minutes}:0${seconds}`
+    }
+    if (minutes === 0) {
+      return `00:${seconds}`
     }
     return `${minutes}:${seconds}`
   }
@@ -203,6 +217,7 @@ export function AudioPlayer() {
                 value={value}
                 maximumTrackTintColor="#000000"
                 minimumTrackTintColor="#2c8a8f"
+                onSlidingStart={() => pauseAudio()}
                 onSlidingComplete={(val) => seekUpdate(val)}
               />
               <View
