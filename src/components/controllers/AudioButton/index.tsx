@@ -26,18 +26,16 @@ export function AudioButton() {
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true
       })
-      console.log('Starting recording..')
       const { recording } = await Audio.Recording.createAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       )
       setRecording(recording)
-      console.log('Recording started')
     } catch (err) {
       console.error('Failed to start recording', err)
     }
   }
 
-  async function handleDeletImage(val: string) {
+  async function handleDeletAudio(val: string) {
     const audios = await asyncStorage.getItem()
     const audiosParsed = audios ? JSON.parse(audios) : []
     const audioDeleted = audiosParsed.filter((index: any) => {
@@ -81,7 +79,7 @@ export function AudioButton() {
           )}
         </AudioSubContainer>
       </Container>
-      {audios && <AudioPlayer audios={audios} handleDeletImage={handleDeletImage} />}
+      {audios && <AudioPlayer audios={audios} handleDeletAudio={handleDeletAudio} />}
     </>
   )
 }

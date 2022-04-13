@@ -1,5 +1,4 @@
-import { FontAwesome5 } from '@expo/vector-icons'
-import React, { useState } from 'react'
+import React from 'react'
 import RNPickerSelect from 'react-native-picker-select'
 
 import { pickerSelectStyles, Icon } from './styles'

@@ -25,9 +25,9 @@ interface Audios {
 }
 interface Props {
   audios: Audios[]
-  handleDeletImage: (id: string) => void
+  handleDeletAudio: (id: string) => void
 }
-export function AudioPlayer({ audios, handleDeletImage }: Props) {
+export function AudioPlayer({ audios, handleDeletAudio }: Props) {
   const [isModalVisible, setModalVisible] = useState(false)
 
   const sound = useRef<Audio.Sound>(new Audio.Sound())
@@ -158,7 +158,7 @@ export function AudioPlayer({ audios, handleDeletImage }: Props) {
               <PlayerButton onPress={() => handlePlayAudioModal(item.uri)}>
                 <PlayerIcon name="playcircleo" />
               </PlayerButton>
-              <DeleteButton onPress={() => handleDeletImage(item.id)}>
+              <DeleteButton onPress={() => handleDeletAudio(item.id)}>
                 <DeleteIcon name="trash" />
               </DeleteButton>
             </PlayerContainer>

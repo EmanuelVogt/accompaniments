@@ -1,4 +1,4 @@
-import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
