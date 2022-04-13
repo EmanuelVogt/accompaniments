@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import { Modal } from 'react-native'
+import React from 'react'
 
-import { FieldActionsModal } from '../FieldActions'
 import { RootStackScreenProps } from '../../../types/navigation'
 import {
   Container,

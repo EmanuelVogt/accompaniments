@@ -1,5 +1,4 @@
 import { Connection } from 'typeorm'
-import { openDatabase, Query } from 'expo-sqlite'
 export class DatabaseRepository {
   private db_connection: Connection
 
