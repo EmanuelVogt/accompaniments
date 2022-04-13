@@ -1,4 +1,3 @@
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Slider from '@react-native-community/slider'
 import { Audio } from 'expo-av'
 import React, { useRef, useState } from 'react'
@@ -135,7 +134,6 @@ export function AudioPlayer({ audios, handleDeletImage }: Props) {
   }
 
   function millisToMinutesAndSeconds(millis: number) {
-    console.log(millis)
     const formatToDate = new Date(millis)
     const minutes = formatToDate.getMinutes()
     const seconds = formatToDate.getSeconds()

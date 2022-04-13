@@ -70,7 +70,7 @@ export function AudioButton() {
     <>
       <Container>
         <AudioSubContainer
-          delayPressIn={300}
+          delayPressIn={1000}
           onPressIn={() => startRecording()}
           onPressOut={() => stopRecording()}
         >
