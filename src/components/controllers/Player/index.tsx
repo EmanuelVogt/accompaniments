@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Slider from '@react-native-community/slider'
 import { Audio } from 'expo-av'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { View, Text, Alert } from 'react-native'
 import Modal from 'react-native-modal'
 
@@ -21,9 +20,15 @@ import {
   PauseIcon
 } from './styles'
 
-export function AudioPlayer() {
-  const [audios, setAudios] = useState([])
-  const asyncStorage = useAsyncStorage('@SR-CAMPO-AUDIO')
+interface Audios {
+  id: string
+  uri: string
+}
+interface Props {
+  audios: Audios[]
+  handleDeletImage: (id: string) => void
+}
+export function AudioPlayer({ audios, handleDeletImage }: Props) {
   const [isModalVisible, setModalVisible] = useState(false)
 
   const sound = useRef<Audio.Sound>(new Audio.Sound())
@@ -54,16 +59,6 @@ export function AudioPlayer() {
         console.log(error)
       }
     }
-  }
-
-  async function handleDeletImage(val: string) {
-    const audios = await asyncStorage.getItem()
-    const audiosParsed = audios ? JSON.parse(audios) : []
-    const audioDeleted = audiosParsed.filter((index: any) => {
-      return index.id !== val
-    })
-    setAudios(audioDeleted)
-    await asyncStorage.setItem(JSON.stringify(audioDeleted))
   }
 
   const playPauseAudio = async () => {
@@ -156,86 +151,69 @@ export function AudioPlayer() {
     return `${minutes}:${seconds}`
   }
 
-  async function loadAudios() {
-    const audios = await asyncStorage.getItem()
-    const audiosParsed = audios ? JSON.parse(audios) : []
-    setAudios(audiosParsed)
-  }
-
-  useEffect(
-    useCallback(() => {
-      loadAudios()
-    }, [loadAudios]),
-    []
-  )
-  console.log(valueMillis)
-  if (audios.length !== 0) {
-    return (
-      <>
-        <SoudsList>
-          {audios.map((item) => (
-            <Container key={item.id}>
-              <PlayerContainer>
-                <PlayerButton onPress={() => handlePlayAudioModal(item.uri)}>
-                  <PlayerIcon name="playcircleo" />
-                </PlayerButton>
-                <DeleteButton onPress={() => handleDeletImage(item.id)}>
-                  <DeleteIcon name="trash" />
-                </DeleteButton>
-              </PlayerContainer>
-            </Container>
-          ))}
-        </SoudsList>
-        <Modal isVisible={isModalVisible} animationIn="bounce" animationOut="bounceOut">
-          <View
-            style={{
-              backgroundColor: '#f3f3f3',
-              width: '100%',
-              height: 120,
-              borderRadius: 5,
-              padding: 5
+  return (
+    <>
+      <SoudsList>
+        {audios.map((item) => (
+          <Container key={item.id}>
+            <PlayerContainer>
+              <PlayerButton onPress={() => handlePlayAudioModal(item.uri)}>
+                <PlayerIcon name="playcircleo" />
+              </PlayerButton>
+              <DeleteButton onPress={() => handleDeletImage(item.id)}>
+                <DeleteIcon name="trash" />
+              </DeleteButton>
+            </PlayerContainer>
+          </Container>
+        ))}
+      </SoudsList>
+      <Modal isVisible={isModalVisible} animationIn="bounce" animationOut="bounceOut">
+        <View
+          style={{
+            backgroundColor: '#f3f3f3',
+            width: '100%',
+            height: 120,
+            borderRadius: 5,
+            padding: 5
+          }}
+        >
+          <CloseModalButton
+            onPress={() => {
+              resetPlayerAndCloseModal()
             }}
           >
-            <CloseModalButton
-              onPress={() => {
-                resetPlayerAndCloseModal()
+            <CloseModalIcon name="leftcircleo" />
+          </CloseModalButton>
+
+          <PlayPauseButton onPress={() => playPauseAudio()}>
+            {playing ? <PauseIcon name="pausecircleo" /> : <PlayIcon name="playcircleo" />}
+          </PlayPauseButton>
+
+          <View style={{ width: '100%', marginTop: 45 }}>
+            <Slider
+              style={{ width: '100%', height: 40 }}
+              minimumValue={0}
+              value={value}
+              maximumTrackTintColor="#000000"
+              minimumTrackTintColor="#2c8a8f"
+              maximumValue={100}
+              onSlidingStart={() => pauseAudio()}
+              onSlidingComplete={(val) => seekUpdate(val)}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginLeft: 15,
+                marginRight: 15
               }}
             >
-              <CloseModalIcon name="leftcircleo" />
-            </CloseModalButton>
-
-            <PlayPauseButton onPress={() => playPauseAudio()}>
-              {playing ? <PauseIcon name="pausecircleo" /> : <PlayIcon name="playcircleo" />}
-            </PlayPauseButton>
-
-            <View style={{ width: '100%', marginTop: 45 }}>
-              <Slider
-                style={{ width: '100%', height: 40 }}
-                minimumValue={0}
-                maximumValue={100}
-                value={value}
-                maximumTrackTintColor="#000000"
-                minimumTrackTintColor="#2c8a8f"
-                onSlidingStart={() => pauseAudio()}
-                onSlidingComplete={(val) => seekUpdate(val)}
-              />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginLeft: 15,
-                  marginRight: 15
-                }}
-              >
-                <Text>{millisToMinutesAndSeconds(valueMillis)}</Text>
-                <Text>{millisToMinutesAndSeconds(durationMillis)}</Text>
-              </View>
+              <Text>{millisToMinutesAndSeconds(valueMillis)}</Text>
+              <Text>{millisToMinutesAndSeconds(durationMillis)}</Text>
             </View>
           </View>
-        </Modal>
-      </>
-    )
-  } else {
-    return null
-  }
+        </View>
+      </Modal>
+    </>
+  )
 }

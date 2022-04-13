@@ -5,15 +5,22 @@ import * as MediaLibrary from 'expo-media-library'
 import React, { useState } from 'react'
 import uuid from 'react-native-uuid'
 
+import { AudioPlayer } from '../Player'
 import { Container, Icon, AudioSubContainer } from './styles'
+
+interface Audios {
+  id: string
+  uri: string
+}
 export function AudioButton() {
   const [recording, setRecording] = useState<Audio.Recording>()
   const [isRecording, setIsRecording] = useState<boolean>()
+  const [audios, setAudios] = useState<Audios[]>()
   const asyncStorage = useAsyncStorage('@SR-CAMPO-AUDIO')
+
   async function startRecording() {
     try {
       setIsRecording(true)
-      console.log('Requesting permissions..')
       await Audio.requestPermissionsAsync()
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
@@ -29,9 +36,19 @@ export function AudioButton() {
       console.error('Failed to start recording', err)
     }
   }
+
+  async function handleDeletImage(val: string) {
+    const audios = await asyncStorage.getItem()
+    const audiosParsed = audios ? JSON.parse(audios) : []
+    const audioDeleted = audiosParsed.filter((index: any) => {
+      return index.id !== val
+    })
+    setAudios(audioDeleted)
+    await asyncStorage.setItem(JSON.stringify(audioDeleted))
+  }
+
   async function stopRecording() {
     setIsRecording(false)
-    console.log('Stopping recording..')
     setRecording(undefined)
     await recording.stopAndUnloadAsync()
     const uri = recording.getURI()
@@ -45,21 +62,26 @@ export function AudioButton() {
 
     const audioSubmit = { uri, id: uuid.v4() }
     const dataSubmit = [...audiosParsed, audioSubmit]
+    setAudios(dataSubmit)
     await asyncStorage.setItem(JSON.stringify(dataSubmit))
   }
+
   return (
-    <Container>
-      <AudioSubContainer
-        delayPressIn={300}
-        onPressIn={() => startRecording()}
-        onPressOut={() => stopRecording()}
-      >
-        {isRecording ? (
-          <FontAwesome5 name="record-vinyl" size={16} color="red" />
-        ) : (
-          <Icon name="microphone" />
-        )}
-      </AudioSubContainer>
-    </Container>
+    <>
+      <Container>
+        <AudioSubContainer
+          delayPressIn={300}
+          onPressIn={() => startRecording()}
+          onPressOut={() => stopRecording()}
+        >
+          {isRecording ? (
+            <FontAwesome5 name="record-vinyl" size={16} color="red" />
+          ) : (
+            <Icon name="microphone" />
+          )}
+        </AudioSubContainer>
+      </Container>
+      {audios && <AudioPlayer audios={audios} handleDeletImage={handleDeletImage} />}
+    </>
   )
 }
